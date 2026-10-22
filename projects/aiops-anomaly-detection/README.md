@@ -1,34 +1,41 @@
-# AIOps Anomaly Detection
+# AIOps Anomaly Detection & Infrastructure Event Intelligence
 
-## Current implementation
+A runnable local-first telemetry ingest service with SQLite storage and robust median absolute deviation anomaly scoring.
 
-Identify telemetry anomalies against a transparent baseline.
+**Status:** Functional local baseline; production features and event correlation not yet implemented. No cloud services are required.
 
-**Status:** Small, dependency-free local proof of concept. Not a complete production system. It does not deploy cloud infrastructure or incur cloud charges.
-
-## Files
-
-- [demo.py](demo.py) — runnable implementation and built-in assertions
-- [tests/test_demo.py](tests/test_demo.py) — independent unittest-based checks
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — architecture, scope and limitations
-
-## Run locally
-
-From the root of the engineering-portfolio repository:
-
+## Quick start
 ```bash
-python3 projects/aiops-anomaly-detection/demo.py
-python3 -m unittest discover -s projects/aiops-anomaly-detection/tests -p 'test_*.py'
+cd projects/aiops-anomaly-detection
+python3 -m unittest discover -s tests -v
+python3 -m aiops.api
 ```
 
-Python 3.9+ recommended; no external packages, credentials, subscriptions or cloud accounts required.
+From another terminal:
+```bash
+python3 scripts/smoke.py
+```
 
-## Development roadmap
+Or use Docker Compose: `docker compose up --build -d`, then run the smoke test; clean up with `docker compose down`.
 
-- [ ] Implement substantive, project-specific infrastructure and application workflows
-- [ ] Add realistic local integration scenarios and negative-path tests
-- [ ] Capture reproducible performance, failure, and security evidence
-- [ ] Review architecture trade-offs and operational runbooks
-- [ ] Validate the finished solution on the intended runtime
+## Architecture
+`metric producer -> POST /v1/ingest -> SQLite history -> MAD detector -> JSON response`
 
-See the GitHub Issues board for tracking. Do not interpret this README as a production-readiness claim.
+The first five samples warm the history. The response includes a baseline, robust score, anomaly Boolean and reason. The ingestion handler validates request size, metric name and numeric finiteness.
+
+## Project files
+- `aiops/core.py`: robust outlier detection implementation.
+- `aiops/store.py`: SQLite schema and persistence.
+- `aiops/api.py`: HTTP ingestion, health and sample-count endpoint.
+- `tests/test_aiops.py`: eight independent tests including HTTP integration.
+- `scripts/smoke.py`: end-to-end smoke test.
+- `Dockerfile`, `compose.yaml`: reproducible local container execution.
+- `Makefile`: build/test/run commands.
+- `docs/ARCHITECTURE.md`: design decisions, limitations and verification.
+
+## HTTP API
+- `GET /healthz` gives service health.
+- `GET /metrics` gives JSON sample count (not Prometheus format).
+- `POST /v1/ingest` accepts `{"metric":"cpu","value":85.0}` and returns classification.
+
+Do not expose this unauthenticated local example on public networks. Multi-source correlation and alert pipelines remain future milestones.
