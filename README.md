@@ -1,38 +1,106 @@
-# Engineering Portfolio
+# Engineering Portfolio — Real Systems, Reproducible Evidence
 
-An expanding portfolio of local-first engineering projects covering cloud infrastructure, Kubernetes, SRE, platform engineering, AI/ML, security, and research.
+A continuously developed engineering portfolio spanning cloud infrastructure, reliability, systems architecture, DevOps, platform engineering, machine learning infrastructure, AIOps, security and engineering research.
 
-**Publication status:** project-specific Python prototypes published in descriptive folders. These are small local demonstrations, not full production implementations. Each link opens the corresponding source code. Run with `python3 projects/<folder-name>/demo.py` from the repository root.
+**Source-code status (October 2026):** All 26 project directories have project-specific executable components, automated test contracts, local packaging and documented limitations. **They are not 26 completed enterprise production systems.** Some are working operational components; others are domain simulators pending integrations.
 
-## Project catalog
+## Explore the engineering projects
 
-- [**Cloud Landing Zone**](projects/cloud-infrastructure-landing-zone/demo.py) — runnable local Python prototype
-- [**Kubernetes Production Operations**](projects/kubernetes-cluster-operations/demo.py) — runnable local Python prototype
-- [**CI/CD and GitOps Delivery Platform**](projects/enterprise-cicd-gitops-platform/demo.py) — runnable local Python prototype
-- [**Full-Stack Observability Platform**](projects/full-stack-observability-platform/demo.py) — runnable local Python prototype
-- [**Linux and Network Failure Engineering**](projects/linux-network-failure-engineering/demo.py) — runnable local Python prototype
-- [**Chaos Engineering and Automated Recovery**](projects/chaos-engineering-automated-recovery/demo.py) — runnable local Python prototype
-- [**Backup, Disaster Recovery and Resilience**](projects/disaster-recovery-backup-automation/demo.py) — runnable local Python prototype
-- [**Cloud FinOps and Kubernetes Cost Optimizer**](projects/cloud-cost-optimization-finops/demo.py) — runnable local Python prototype
-- [**DevSecOps and Supply Chain Security**](projects/devsecops-supply-chain-security/demo.py) — runnable local Python prototype
-- [**Performance, Capacity and Load Testing**](projects/performance-load-capacity-engineering/demo.py) — runnable local Python prototype
-- [**Internal Developer Platform**](projects/internal-developer-platform/demo.py) — runnable local Python prototype
-- [**Service Catalogue and Engineering Standards**](projects/engineering-service-catalog/demo.py) — runnable local Python prototype
-- [**Policy-as-Code and Multi-Tenant Guardrails**](projects/policy-as-code-platform-governance/demo.py) — runnable local Python prototype
-- [**Multi-Cloud Platform Engineering**](projects/multi-cloud-infrastructure-orchestration/demo.py) — runnable local Python prototype
-- [**End-to-End MLOps Pipeline**](projects/end-to-end-mlops-pipeline/demo.py) — runnable local Python prototype
-- [**Production Model Serving and Monitoring**](projects/ml-model-serving-inference-monitoring/demo.py) — runnable local Python prototype
-- [**GPU and AI Workload Scheduling**](projects/gpu-ai-workload-scheduling/demo.py) — runnable local Python prototype
-- [**ML Observability and Drift Detection**](projects/ml-observability-drift-detection/demo.py) — runnable local Python prototype
-- [**AIOps Anomaly Detection Engine**](projects/aiops-anomaly-detection/demo.py) — runnable local Python prototype
-- [**Automated Incident Diagnosis and Remediation**](projects/intelligent-incident-remediation/demo.py) — runnable local Python prototype
-- [**Infrastructure Digital Twin and What-If Simulator**](projects/infrastructure-digital-twin/demo.py) — runnable local Python prototype
-- [**Closed-Loop Infrastructure Controller**](projects/autonomous-infrastructure-controller/demo.py) — runnable local Python prototype
-- [**Post-Quantum Cryptography Migration Readiness**](projects/post-quantum-tls-migration-readiness/demo.py) — runnable local Python prototype
-- [**Cryptographic Agility and Security Policy Automation**](projects/cryptographic-agility-automation/demo.py) — runnable local Python prototype
-- [**Heterogeneous Computing Orchestrator**](projects/heterogeneous-compute-orchestrator/demo.py) — runnable local Python prototype
-- [**Cross-System Reliability and Infrastructure Intelligence**](projects/cross-system-reliability-intelligence/demo.py) — runnable local Python prototype
+### Cloud Infrastructure, DevOps & Systems Engineering
 
-## Zero-cost policy
+| Project | Current implemented component |
+|---|---|
+| [Production-Ready Cloud Infrastructure & Landing Zone](projects/cloud-infrastructure-landing-zone/README.md) | Network checks, guarded AWS VPC Terraform skeleton |
+| [Kubernetes Cluster Operations & Production Workload Management](projects/kubernetes-cluster-operations/README.md) | Three-node kind config, Kustomize workload, CI and runbooks |
+| [Enterprise CI/CD Automation & GitOps Delivery Platform](projects/enterprise-cicd-gitops-platform/README.md) | Release gate simulator and Argo CD Application |
+| [Full-Stack Observability, Monitoring & Distributed Tracing](projects/full-stack-observability-platform/README.md) | SLO evaluator and local Prometheus/Grafana stack (tracing pending) |
+| [Linux Systems, Network Diagnostics & Failure Engineering](projects/linux-network-failure-engineering/README.md) | Connectivity failure evaluation |
 
-All prototypes run locally without cloud credentials. Do not enable billable cloud services or paid CI usage. No fabricated historical project dates or production claims.
+### Site Reliability, Security & Resilience
+
+| Project | Current implemented component |
+|---|---|
+| [Chaos Engineering & Automated Service Recovery](projects/chaos-engineering-automated-recovery/README.md) | Disruption policy gate (fault execution pending) |
+| [Disaster Recovery, Backup Automation & Business Continuity](projects/disaster-recovery-backup-automation/README.md) | File archive, checksums, safe restore and DR drill |
+| [Cloud Infrastructure Cost Optimization & Kubernetes FinOps](projects/cloud-cost-optimization-finops/README.md) | Offline savings model and zero-cost budget gate |
+| [DevSecOps Automation & Software Supply Chain Security](projects/devsecops-supply-chain-security/README.md) | Artifact supply-chain policy evaluator |
+| [Distributed Application Performance, Load & Capacity Engineering](projects/performance-load-capacity-engineering/README.md) | Latency/throughput statistics evaluator |
+
+### Platform Engineering & Enterprise Architecture
+
+| Project | Current implemented component |
+|---|---|
+| [Internal Developer Platform & Self-Service Infrastructure Provisioning](projects/internal-developer-platform/README.md) | Resource admission gate; provisioning pending |
+| [Engineering Service Catalog & Software Architecture Governance](projects/engineering-service-catalog/README.md) | Service ownership/dependency validator |
+| [Policy-as-Code, Infrastructure Compliance & Multi-Tenant Security](projects/policy-as-code-platform-governance/README.md) | Tenant-scoped RBAC evaluation |
+| [Multi-Cloud Infrastructure Architecture & Deployment Orchestration](projects/multi-cloud-infrastructure-orchestration/README.md) | Provider placement evaluator; cloud deployments disabled |
+
+### Machine Learning Infrastructure & MLOps
+
+| Project | Current implemented component |
+|---|---|
+| [End-to-End Machine Learning Pipeline & MLOps Automation](projects/end-to-end-mlops-pipeline/README.md) | Deterministic training/evaluation baseline |
+| [Production Machine Learning Model Serving & Inference Monitoring](projects/ml-model-serving-inference-monitoring/README.md) | Prediction/SLO evaluator |
+| [GPU Workload Scheduling & AI Compute Resource Optimization](projects/gpu-ai-workload-scheduling/README.md) | Priority-based CPU/GPU placement simulator |
+| [Machine Learning Observability, Data Drift & Model Performance Monitoring](projects/ml-observability-drift-detection/README.md) | Feature distribution drift evaluator |
+
+### AIOps & Autonomous Infrastructure
+
+| Project | Current implemented component |
+|---|---|
+| [AIOps Anomaly Detection & Infrastructure Event Intelligence](projects/aiops-anomaly-detection/README.md) | HTTP ingestion, SQLite and MAD anomaly detection |
+| [Intelligent Incident Diagnosis & Automated Infrastructure Remediation](projects/intelligent-incident-remediation/README.md) | Safe diagnosis recommendations (no execution) |
+| [Infrastructure Digital Twin & Predictive Failure Simulation](projects/infrastructure-digital-twin/README.md) | Dependency failure propagation simulator |
+| [Autonomous Infrastructure Control & Closed-Loop Self-Healing Systems](projects/autonomous-infrastructure-controller/README.md) | Policy-bounded scaling decisions with audit trail (no execution) |
+
+### Advanced Security, Distributed Computing & Research
+
+| Project | Current implemented component |
+|---|---|
+| [Post-Quantum Cryptography Migration Readiness & Hybrid TLS Validation](projects/post-quantum-tls-migration-readiness/README.md) | Evidence classifier (actual cryptographic handshake pending) |
+| [Cryptographic Agility, Key Lifecycle & Security Policy Automation](projects/cryptographic-agility-automation/README.md) | Algorithm/key policy inventory |
+| [Heterogeneous Computing & Adaptive Workload Orchestration](projects/heterogeneous-compute-orchestrator/README.md) | CPU/GPU scheduling under cost/latency constraints |
+| [Cross-System Reliability Intelligence & Distributed Infrastructure Analytics](projects/cross-system-reliability-intelligence/README.md) | Transitive blast-radius analysis |
+
+## Independent verification
+
+The main projects are organized into `projects/<descriptive-project-name>/`.
+
+```bash
+git clone https://github.com/zeeshanakhtar1/engineering-portfolio.git
+cd engineering-portfolio
+bash scripts/validate-all.sh
+```
+
+To execute an individual project, open its README and follow the commands. For most projects:
+
+```bash
+cd projects/<descriptive-project-name>
+python3 -m unittest discover -s tests -v
+python3 run.py examples/scenario.json
+# Optional, only with a Docker-compatible runtime:
+docker compose up --build -d
+```
+
+**Exceptions:** Kubernetes, AIOps, autonomous controller and backup/recovery have additional project-specific commands and multi-file implementations. Follow their own READMEs.
+
+## Engineering validation and evidence
+
+- AIOps API: eight local unit/integration tests and an HTTP anomaly ingestion smoke test passed during implementation.
+- Autonomous Infrastructure Controller: eight unit tests and a local CLI decision demonstration passed.
+- Disaster Recovery: four file-backup tests and a local restore/integrity drill passed.
+- Kubernetes platform: HTTP application tests were executed; full Docker/kind cluster deployment has **not** been independently verified.
+- Remaining project engines: tests are committed and a GitHub Actions validation workflow exists, but a completed CI run has **not** been verified in this session.
+- Terraform, Argo CD, Prometheus/Grafana, managed environments, real TLS hybrid handshakes and GPU runtimes have **not** been validated end to end.
+
+## Zero-cost engineering policy
+
+Everything defaults to local simulation or static validation, with no billable cloud deployment. The AWS Terraform module's `deploy_resources` is `false` by default; do not override it for this portfolio. Docker and standard local open-source tools need no cloud subscription. Check local storage and resource availability, and do not assume all optional Docker images are preinstalled.
+
+Our public GitHub workflow uses a standard GitHub-hosted runner; GitHub documents standard runners in public repositories as free, but larger runners and some storage/features can be charged. No paid runners, managed cloud clusters or paid CI services are required.
+
+## Integrity
+
+No fabricated historical commit dates, results, customer data or production claims. Project README files describe exactly what is implemented and what remains. This repository demonstrates progressively developed engineering components and is not a guarantee of production readiness.
+
+[See open project implementation issues](https://github.com/zeeshanakhtar1/engineering-portfolio/issues) · [Portfolio planning board](https://github.com/users/zeeshanakhtar1/projects/1)
