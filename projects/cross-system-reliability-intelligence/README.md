@@ -1,26 +1,30 @@
-# Cross System Reliability Intelligence
+# Cross-System Reliability Intelligence and Distributed Infrastructure Analytics
 
-**Current status:** Runnable local proof of concept; full engineering implementation and integration tests pending.
+Transitive outage blast-radius analysis over a declared service-dependency graph.
 
-## Source code
+**Current implementation:** A reproducible, domain-specific local evaluation engine with a CLI, HTTP endpoint, unit tests and container packaging. This is an independently runnable engineering component, **not** a fully deployed enterprise cross-system reliability intelligence and distributed infrastructure analytics solution.
 
-- [demo.py](demo.py) — project-specific Python logic with basic assertions.
-
-## Run
+## Get started
 
 ```bash
-python3 projects/cross-system-reliability-intelligence/demo.py
+cd projects/cross-system-reliability-intelligence
+python3 -m unittest discover -s tests -v
+python3 run.py examples/scenario.json
+python3 server.py
 ```
 
-Requires only Python 3.9+ and no cloud credentials or paid services.
+To send scenarios over HTTP: `curl -sS -X POST http://127.0.0.1:8080/evaluate -H 'Content-Type: application/json' --data-binary @examples/scenario.json`.
 
-## Engineering deliverables still required
+Use `docker compose up --build -d` to start a local container, and `docker compose down` to stop it. **No cloud credentials or paid services are needed.**
 
-- [ ] Production-style project architecture and application code
-- [ ] Local deployment and configuration manifests
-- [ ] Automated unit, integration, and negative-path tests
-- [ ] Security checks, failure injection, and recovery runbooks
-- [ ] Reproducible operational evidence and performance measurements
-- [ ] Independent verification of end-to-end functionality
+## Architecture and project files
 
-The current prototype must not be represented as a complete production-grade system.
+- `engine.py` implements transitive outage blast-radius analysis over a declared service-dependency graph.
+- `run.py` runs the sample scenario.
+- `server.py` exposes `GET /healthz` and `POST /evaluate`.
+- `examples/scenario.json` provides independently reproducible input data.
+- `tests/test_engine.py` contains automated assertions.
+- `Dockerfile` and `compose.yaml` create the local deployment.
+- `docs/ARCHITECTURE.md` documents scope, trade-offs and known gaps.
+
+**Validation:** Automated tests are provided; CI/runtime validation must still be executed by an independent reviewer. Hosted deployment and production-grade integrations are not claimed.

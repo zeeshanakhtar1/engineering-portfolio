@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "database": [],
+    "api": [
+      "database"
+    ],
+    "frontend": [
+      "api"
+    ],
+    "batch": []
+  },
+  "failed_service": "database"
+}

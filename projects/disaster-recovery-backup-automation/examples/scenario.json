@@ -1,0 +1,7 @@
+{
+  "backup_payload": "abc",
+  "data_loss_minutes": 2,
+  "rpo_target_minutes": 5,
+  "restore_minutes": 15,
+  "rto_target_minutes": 30
+}

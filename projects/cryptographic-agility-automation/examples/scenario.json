@@ -1,0 +1,15 @@
+{
+  "as_of": "2026-10-22",
+  "inventory": [
+    {
+      "id": "key-old",
+      "algorithm": "SHA-1",
+      "expires_on": "2026-11-01"
+    },
+    {
+      "id": "key-new",
+      "algorithm": "SHA-256",
+      "expires_on": "2027-01-01"
+    }
+  ]
+}

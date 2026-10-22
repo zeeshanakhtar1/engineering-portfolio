@@ -1,0 +1,6 @@
+{
+  "nodes": 5,
+  "healthy": 5,
+  "faults": 2,
+  "minimum_healthy": 4
+}

@@ -1,34 +1,30 @@
-# Cloud Cost Optimization Finops
+# Cloud Cost Optimization and Kubernetes FinOps
 
-## Current implementation
+Offline infrastructure expense and rightsizing calculator. Cost estimates do not launch paid cloud resources.
 
-Estimate cloud spend and enforce a zero-cost budget.
+**Current implementation:** A reproducible, domain-specific local evaluation engine with a CLI, HTTP endpoint, unit tests and container packaging. This is an independently runnable engineering component, **not** a fully deployed enterprise cloud cost optimization and kubernetes finops solution.
 
-**Status:** Small, dependency-free local proof of concept. Not a complete production system. It does not deploy cloud infrastructure or incur cloud charges.
-
-## Files
-
-- [demo.py](demo.py) — runnable implementation and built-in assertions
-- [tests/test_demo.py](tests/test_demo.py) — independent unittest-based checks
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — architecture, scope and limitations
-
-## Run locally
-
-From the root of the engineering-portfolio repository:
+## Get started
 
 ```bash
-python3 projects/cloud-cost-optimization-finops/demo.py
-python3 -m unittest discover -s projects/cloud-cost-optimization-finops/tests -p 'test_*.py'
+cd projects/cloud-cost-optimization-finops
+python3 -m unittest discover -s tests -v
+python3 run.py examples/scenario.json
+python3 server.py
 ```
 
-Python 3.9+ recommended; no external packages, credentials, subscriptions or cloud accounts required.
+To send scenarios over HTTP: `curl -sS -X POST http://127.0.0.1:8080/evaluate -H 'Content-Type: application/json' --data-binary @examples/scenario.json`.
 
-## Development roadmap
+Use `docker compose up --build -d` to start a local container, and `docker compose down` to stop it. **No cloud credentials or paid services are needed.**
 
-- [ ] Implement substantive, project-specific infrastructure and application workflows
-- [ ] Add realistic local integration scenarios and negative-path tests
-- [ ] Capture reproducible performance, failure, and security evidence
-- [ ] Review architecture trade-offs and operational runbooks
-- [ ] Validate the finished solution on the intended runtime
+## Architecture and project files
 
-See the GitHub Issues board for tracking. Do not interpret this README as a production-readiness claim.
+- `engine.py` implements offline infrastructure expense and rightsizing calculator. Cost estimates do not launch paid cloud resources.
+- `run.py` runs the sample scenario.
+- `server.py` exposes `GET /healthz` and `POST /evaluate`.
+- `examples/scenario.json` provides independently reproducible input data.
+- `tests/test_engine.py` contains automated assertions.
+- `Dockerfile` and `compose.yaml` create the local deployment.
+- `docs/ARCHITECTURE.md` documents scope, trade-offs and known gaps.
+
+**Validation:** Automated tests are provided; CI/runtime validation must still be executed by an independent reviewer. Hosted deployment and production-grade integrations are not claimed.

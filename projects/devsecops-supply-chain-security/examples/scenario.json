@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    {
+      "name": "api",
+      "sbom": true,
+      "signed": true,
+      "provenance": false,
+      "critical_vulnerabilities": 0
+    }
+  ]
+}
