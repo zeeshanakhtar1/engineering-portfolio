@@ -1,0 +1,24 @@
+{
+  "supported": true,
+  "openssl_version": "OpenSSL 3.5.5 27 Jan 2026 (Library: OpenSSL 3.5.5 27 Jan 2026)",
+  "certificate": "ephemeral RSA self-signed CA trusted for this test only",
+  "results": {
+    "X25519": {
+      "success": true,
+      "handshakes": 3,
+      "mean_wall_ms": 12.684,
+      "min_wall_ms": 11.539,
+      "max_wall_ms": 13.426,
+      "negotiated_group": "X25519"
+    },
+    "X25519MLKEM768": {
+      "success": true,
+      "handshakes": 3,
+      "mean_wall_ms": 11.16,
+      "min_wall_ms": 9.767,
+      "max_wall_ms": 12.339,
+      "negotiated_group": "X25519MLKEM768"
+    }
+  },
+  "note": "Exploratory local handshake measurements; do not generalize as production benchmarks."
+}
