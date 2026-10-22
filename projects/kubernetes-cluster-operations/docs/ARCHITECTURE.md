@@ -1,25 +1,30 @@
-# Kubernetes Operations Architecture
+# Local Kubernetes Platform Architecture
 
-Local-only workload deployment with a 2-replica unprivileged nginx example, resource limits, probes, and a ClusterIP service.
-
-## Run (requires a local Kubernetes cluster and kubectl)
-
-```bash
-kubectl apply -f manifests/deployment.yaml
-kubectl apply -f manifests/service.yaml
-kubectl rollout status deployment/example-api --timeout=120s
-kubectl get pods -l app=example-api
-kubectl port-forward service/example-api 8080:80
+```mermaid
+flowchart LR
+  Mac[Developer Mac] --> Scripts[Bootstrap scripts]
+  Scripts --> Docker[Local OCI image build]
+  Scripts --> Kind[kind cluster: 3 nodes]
+  Docker --> Kind
+  Kind --> Service[NodePort Service]
+  Service --> Replicas[Two API replicas]
+  Replicas --> Metrics[health/readiness/metrics]
 ```
 
-In another terminal: `curl http://127.0.0.1:8080`.
+## Engineering decisions
 
-## Limits
+- **Provisioning:** Declarative kind cluster configuration for reproducible local workloads without cloud spend.
+- **Delivery:** Local Docker build and image load, Kustomize base/overlay declarative manifests; no paid registries.
+- **Reliability:** Two replicas, rolling updates with `maxUnavailable: 0`, readiness/liveness probes and disruption budget.
+- **Security:** Restricted namespace, non-root UID, seccomp RuntimeDefault, dropped Linux capabilities, read-only root filesystem, no privilege escalation.
+- **Observability:** HTTP health/readiness and Prometheus-compatible telemetry endpoint. No Prometheus server has been installed.
+- **Autoscaling:** HPA specified but requires metrics-server, absent by default in kind.
+- **Automation:** Bash scripts for bootstrap/check/smoke/teardown; GitHub CI configuration for Python tests and container build.
 
-These manifests are a local Kubernetes demonstration, not a fully validated production deployment. They have not been executed against a cluster in this publishing session. Image downloads require network access. No cloud account is required.
+## Boundaries and gaps
 
-## Cleanup
+The local 3-node kind topology is not high availability for the physical host. It does not prove cloud IAM, production networking, multi-zone durability or realistic load. An external TLS ingress, persistent data, distributed tracing and end-to-end fault-injection tests are not yet implemented.
 
-```bash
-kubectl delete -f manifests/service.yaml -f manifests/deployment.yaml
-```
+## Evidence
+
+Four application HTTP tests passed in the authoring environment. Docker/kind runtime validation is still pending on the target Mac; see `docs/RUNBOOK.md`.
