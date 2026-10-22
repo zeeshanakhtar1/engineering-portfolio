@@ -1,26 +1,30 @@
-# Post Quantum Tls Migration Readiness
+# Post-Quantum Cryptography Migration Readiness and Hybrid TLS Validation
 
-**Current status:** Runnable local proof of concept; full engineering implementation and integration tests pending.
+Assess an evidence-based hybrid TLS 1.3 migration decision from supplied validation results. Does NOT perform a real X25519+ML-KEM handshake.
 
-## Source code
+## What is implemented
 
-- [demo.py](demo.py) — project-specific Python logic with basic assertions.
+A project-specific deterministic evaluation engine, CLI, HTTP interface, Dockerfile/Compose local deployment, recorded example scenario and automated contract tests. These components are real source code, but this project is **not yet** a complete production implementation of its broader scope.
 
-## Run
+## Reproduce
 
 ```bash
-python3 projects/post-quantum-tls-migration-readiness/demo.py
+cd projects/post-quantum-tls-migration-readiness
+python3 -m unittest discover -s tests -v
+python3 run.py examples/scenario.json
+python3 server.py
 ```
 
-Requires only Python 3.9+ and no cloud credentials or paid services.
+In a second terminal:
 
-## Engineering deliverables still required
+```bash
+curl -fsS -X POST http://127.0.0.1:8080/evaluate -H 'Content-Type: application/json' --data-binary @examples/scenario.json
+```
 
-- [ ] Production-style project architecture and application code
-- [ ] Local deployment and configuration manifests
-- [ ] Automated unit, integration, and negative-path tests
-- [ ] Security checks, failure injection, and recovery runbooks
-- [ ] Reproducible operational evidence and performance measurements
-- [ ] Independent verification of end-to-end functionality
+For container deployment, run `docker compose up --build -d` and use the same HTTP command, then `docker compose down`.
 
-The current prototype must not be represented as a complete production-grade system.
+## Source files
+
+`engine.py` (domain logic), `run.py` (CLI), `server.py` (HTTP), `tests/test_engine.py` (tests), `examples/scenario.json` (fixtures), `Dockerfile`, `compose.yaml`, `Makefile`, and `docs/ARCHITECTURE.md`.
+
+**Costs:** No cloud deployment occurs; services only bind to localhost. Do not expose the unauthenticated HTTP service publicly.

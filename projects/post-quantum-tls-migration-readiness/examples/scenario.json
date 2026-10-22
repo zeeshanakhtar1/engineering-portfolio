@@ -1,0 +1,7 @@
+{
+  "tls_version": "1.3",
+  "hybrid_supported": true,
+  "interop_ok": true,
+  "application_ok": true,
+  "performance_within_target": false
+}

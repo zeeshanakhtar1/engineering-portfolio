@@ -1,0 +1,10 @@
+{
+  "latencies_ms": [
+    10,
+    20,
+    30,
+    40
+  ],
+  "seconds": 2,
+  "capacity_rps": 3
+}

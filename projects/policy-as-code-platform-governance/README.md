@@ -1,34 +1,30 @@
-# Policy As Code Platform Governance
+# Policy-as-Code, Infrastructure Compliance and Multi-Tenant Security
 
-## Current implementation
+Evaluate explicit role-based access rights with a strict cross-tenant denial invariant.
 
-Enforce simulated tenant-isolation policies.
+## What is implemented
 
-**Status:** Small, dependency-free local proof of concept. Not a complete production system. It does not deploy cloud infrastructure or incur cloud charges.
+A project-specific deterministic evaluation engine, CLI, HTTP interface, Dockerfile/Compose local deployment, recorded example scenario and automated contract tests. These components are real source code, but this project is **not yet** a complete production implementation of its broader scope.
 
-## Files
-
-- [demo.py](demo.py) — runnable implementation and built-in assertions
-- [tests/test_demo.py](tests/test_demo.py) — independent unittest-based checks
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — architecture, scope and limitations
-
-## Run locally
-
-From the root of the engineering-portfolio repository:
+## Reproduce
 
 ```bash
-python3 projects/policy-as-code-platform-governance/demo.py
-python3 -m unittest discover -s projects/policy-as-code-platform-governance/tests -p 'test_*.py'
+cd projects/policy-as-code-platform-governance
+python3 -m unittest discover -s tests -v
+python3 run.py examples/scenario.json
+python3 server.py
 ```
 
-Python 3.9+ recommended; no external packages, credentials, subscriptions or cloud accounts required.
+In a second terminal:
 
-## Development roadmap
+```bash
+curl -fsS -X POST http://127.0.0.1:8080/evaluate -H 'Content-Type: application/json' --data-binary @examples/scenario.json
+```
 
-- [ ] Implement substantive, project-specific infrastructure and application workflows
-- [ ] Add realistic local integration scenarios and negative-path tests
-- [ ] Capture reproducible performance, failure, and security evidence
-- [ ] Review architecture trade-offs and operational runbooks
-- [ ] Validate the finished solution on the intended runtime
+For container deployment, run `docker compose up --build -d` and use the same HTTP command, then `docker compose down`.
 
-See the GitHub Issues board for tracking. Do not interpret this README as a production-readiness claim.
+## Source files
+
+`engine.py` (domain logic), `run.py` (CLI), `server.py` (HTTP), `tests/test_engine.py` (tests), `examples/scenario.json` (fixtures), `Dockerfile`, `compose.yaml`, `Makefile`, and `docs/ARCHITECTURE.md`.
+
+**Costs:** No cloud deployment occurs; services only bind to localhost. Do not expose the unauthenticated HTTP service publicly.

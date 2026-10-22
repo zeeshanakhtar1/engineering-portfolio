@@ -1,0 +1,8 @@
+{
+  "checks": {
+    "dns": true,
+    "tcp": true,
+    "tls": false,
+    "http": false
+  }
+}

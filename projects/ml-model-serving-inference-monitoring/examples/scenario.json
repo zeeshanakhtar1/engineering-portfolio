@@ -1,0 +1,13 @@
+{
+  "weights": [
+    3,
+    4
+  ],
+  "features": [
+    1,
+    2
+  ],
+  "bias": 1,
+  "latency_ms": 15,
+  "latency_slo_ms": 100
+}

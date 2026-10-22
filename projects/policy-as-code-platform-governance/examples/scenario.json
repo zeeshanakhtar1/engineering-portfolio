@@ -1,0 +1,10 @@
+{
+  "subject": {
+    "tenant": "tenant-a",
+    "role": "reader"
+  },
+  "resource": {
+    "tenant": "tenant-b"
+  },
+  "action": "read"
+}

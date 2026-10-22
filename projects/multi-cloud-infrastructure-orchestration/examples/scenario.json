@@ -1,0 +1,26 @@
+{
+  "workload": {
+    "cpu": 2,
+    "memory_gb": 4
+  },
+  "providers": [
+    {
+      "name": "aws-sim",
+      "cpu_limit": 8,
+      "memory_limit_gb": 16,
+      "cost_score": 3
+    },
+    {
+      "name": "azure-sim",
+      "cpu_limit": 4,
+      "memory_limit_gb": 8,
+      "cost_score": 2
+    },
+    {
+      "name": "local",
+      "cpu_limit": 4,
+      "memory_limit_gb": 8,
+      "cost_score": 0
+    }
+  ]
+}
