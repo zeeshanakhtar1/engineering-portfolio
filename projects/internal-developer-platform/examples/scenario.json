@@ -1,0 +1,9 @@
+{
+  "request": {
+    "service": "billing",
+    "environment": "dev",
+    "cpu": 2,
+    "memory_gb": 4,
+    "owner": "team-platform"
+  }
+}

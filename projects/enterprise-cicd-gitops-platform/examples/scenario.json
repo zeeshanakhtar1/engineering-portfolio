@@ -1,0 +1,9 @@
+{
+  "release": {
+    "git_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "tests_passed": true,
+    "security_passed": true,
+    "approved": false,
+    "signed": true
+  }
+}

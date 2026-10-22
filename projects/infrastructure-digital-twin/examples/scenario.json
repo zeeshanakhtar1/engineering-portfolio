@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "db": [],
+    "api": [
+      "db"
+    ],
+    "web": [
+      "api"
+    ]
+  },
+  "failed": [
+    "db"
+  ]
+}

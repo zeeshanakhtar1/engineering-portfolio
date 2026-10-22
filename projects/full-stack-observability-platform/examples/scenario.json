@@ -1,0 +1,21 @@
+{
+  "requests": [
+    {
+      "latency_ms": 10,
+      "status": 200
+    },
+    {
+      "latency_ms": 20,
+      "status": 500
+    },
+    {
+      "latency_ms": 30,
+      "status": 200
+    },
+    {
+      "latency_ms": 40,
+      "status": 200
+    }
+  ],
+  "max_error_rate": 0.1
+}

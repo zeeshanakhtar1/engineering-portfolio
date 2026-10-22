@@ -1,0 +1,14 @@
+{
+  "services": {
+    "api": {
+      "owner": "platform",
+      "depends_on": [
+        "db"
+      ]
+    },
+    "db": {
+      "owner": "data",
+      "depends_on": []
+    }
+  }
+}

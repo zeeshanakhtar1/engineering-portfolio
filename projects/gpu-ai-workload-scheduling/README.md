@@ -1,34 +1,30 @@
-# GPU Ai Workload Scheduling
+# GPU Workload Scheduling and AI Compute Resource Optimization
 
-## Current implementation
+Implement priority-ordered and resource-constrained CPU/GPU placement using deterministic bin-packing heuristics.
 
-Schedule simulated CPU/GPU workloads under resource constraints.
+**Implementation level:** Domain-specific, local-first executable engine with JSON CLI and HTTP API, independently testable sample, and a Docker Compose run target. This is not yet a complete production-grade implementation.
 
-**Status:** Small, dependency-free local proof of concept. Not a complete production system. It does not deploy cloud infrastructure or incur cloud charges.
+## Run
+
+```bash
+cd projects/gpu-ai-workload-scheduling
+python3 -m unittest discover -s tests -v
+python3 run.py examples/scenario.json
+python3 server.py
+```
+
+In a second terminal: `curl -sS -X POST http://127.0.0.1:8080/evaluate -H 'Content-Type: application/json' --data-binary @examples/scenario.json`.
+
+Docker alternative: `docker compose up --build -d`, then use the same curl command. Clean up: `docker compose down`.
 
 ## Files
 
-- [demo.py](demo.py) — runnable implementation and built-in assertions
-- [tests/test_demo.py](tests/test_demo.py) — independent unittest-based checks
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — architecture, scope and limitations
+- `engine.py`: project-domain decision and validation logic
+- `run.py`: CLI scenario execution
+- `server.py`: HTTP `/evaluate` and `/healthz`
+- `examples/scenario.json`: reproducible scenario
+- `tests/test_engine.py`: deterministic assertions
+- `Dockerfile`, `compose.yaml`: local packaging/deployment
+- `docs/ARCHITECTURE.md`: design constraints, boundaries and remaining work
 
-## Run locally
-
-From the root of the engineering-portfolio repository:
-
-```bash
-python3 projects/gpu-ai-workload-scheduling/demo.py
-python3 -m unittest discover -s projects/gpu-ai-workload-scheduling/tests -p 'test_*.py'
-```
-
-Python 3.9+ recommended; no external packages, credentials, subscriptions or cloud accounts required.
-
-## Development roadmap
-
-- [ ] Implement substantive, project-specific infrastructure and application workflows
-- [ ] Add realistic local integration scenarios and negative-path tests
-- [ ] Capture reproducible performance, failure, and security evidence
-- [ ] Review architecture trade-offs and operational runbooks
-- [ ] Validate the finished solution on the intended runtime
-
-See the GitHub Issues board for tracking. Do not interpret this README as a production-readiness claim.
+No cloud credentials or paid accounts are required. **Deployment claims beyond local validation are not made.**
