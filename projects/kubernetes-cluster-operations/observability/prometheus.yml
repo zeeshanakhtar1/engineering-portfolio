@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: platform-api-local
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['host.docker.internal:18080']
+# Example configuration only; this does not provision Prometheus.
+# host.docker.internal is supported in Docker Desktop and some compatible runtimes.
