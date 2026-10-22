@@ -1,34 +1,54 @@
-# Kubernetes Cluster Operations
+# Kubernetes Cluster Operations & Production Workload Management
 
-## Current implementation
+A locally deployable Kubernetes platform reference implementation, not merely a demo script.
 
-Assess Kubernetes rollout health and availability thresholds.
+## Implemented components
 
-**Status:** Small, dependency-free local proof of concept. Not a complete production system. It does not deploy cloud infrastructure or incur cloud charges.
+- Dependency-free Python HTTP service: health/readiness, version endpoint and Prometheus-format metrics.
+- Non-root OCI container in `Dockerfile`.
+- Declarative three-node kind cluster in `infra/kind/cluster.yaml`.
+- Deployment with two replicas, RollingUpdate, readiness/liveness probes, CPU/memory requests and limits, security hardening.
+- Kustomize base and development overlay; namespace, NodePort Service, PodDisruptionBudget and HPA.
+- Automated bootstrap, local build, smoke checks, verification and teardown in `scripts/`.
+- Python HTTP tests in `tests/test_app.py`.
+- GitHub Actions workflow at repository root: `.github/workflows/kubernetes-platform-ci.yml`.
+- Operational runbook and architecture documentation.
 
-## Files
+## Requirements
 
-- [demo.py](demo.py) — runnable implementation and built-in assertions
-- [tests/test_demo.py](tests/test_demo.py) — independent unittest-based checks
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — architecture, scope and limitations
+macOS Apple Silicon or Linux with a working Docker-compatible daemon, kind and kubectl. Python 3.9+. No cloud credentials or paid cloud services required. External image pulls require internet access.
 
-## Run locally
-
-From the root of the engineering-portfolio repository:
+## Reproduce locally
 
 ```bash
-python3 projects/kubernetes-cluster-operations/demo.py
-python3 -m unittest discover -s projects/kubernetes-cluster-operations/tests -p 'test_*.py'
+cd projects/kubernetes-cluster-operations
+bash scripts/check.sh
+bash scripts/up.sh
+bash scripts/smoke.sh
+curl -fsS http://127.0.0.1:18080/api/v1/info
+bash scripts/down.sh
 ```
 
-Python 3.9+ recommended; no external packages, credentials, subscriptions or cloud accounts required.
+## Run tests without Docker or a cluster
 
-## Development roadmap
+```bash
+python3 -m unittest discover -s tests -v
+```
 
-- [ ] Implement substantive, project-specific infrastructure and application workflows
-- [ ] Add realistic local integration scenarios and negative-path tests
-- [ ] Capture reproducible performance, failure, and security evidence
-- [ ] Review architecture trade-offs and operational runbooks
-- [ ] Validate the finished solution on the intended runtime
+## Repository layout
 
-See the GitHub Issues board for tracking. Do not interpret this README as a production-readiness claim.
+- `app/`: HTTP application
+- `Dockerfile`: OCI container build
+- `infra/kind/`: local cluster provisioner configuration
+- `k8s/base/`, `k8s/overlays/dev/`: Kubernetes platform IaC
+- `scripts/`: bring-up, smoke test, quality checks and teardown
+- `tests/`: API tests
+- `docs/`: architecture, limitations and operational runbook
+
+## Verification and limitations
+
+**Verified:** HTTP API tests executed successfully in the build environment. Python compile and shell syntax checks passed locally on a corresponding build.
+
+**Not yet verified:** End-to-end kind cluster bring-up, Docker image execution and the remote GitHub Actions workflow. kind, kubectl and Docker were not available in the build environment. HPA will not function until metrics-server is installed; scrape annotations do not install Prometheus; no Grafana dashboard is currently provided. No production-grade or cloud-deployed claim is made. Remote CI could consume GitHub Actions quotas, so check account spending controls before enabling automated workflows.
+
+This is a substantial platform foundation, but still not a complete enterprise production architecture.
