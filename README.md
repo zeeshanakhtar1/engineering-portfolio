@@ -2,7 +2,7 @@
 
 An expanding portfolio of local-first engineering projects covering cloud infrastructure, Kubernetes, SRE, platform engineering, AI/ML, security, and research.
 
-**Publication status:** 26 project-specific Python prototypes published in descriptive folders. These are small local demonstrations, not full production implementations. Each link opens the corresponding source code. Run with `python3 projects/<folder-name>/demo.py` from the repository root.
+**Publication status:** project-specific Python prototypes published in descriptive folders. These are small local demonstrations, not full production implementations. Each link opens the corresponding source code. Run with `python3 projects/<folder-name>/demo.py` from the repository root.
 
 ## Project catalog
 
