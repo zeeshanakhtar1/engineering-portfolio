@@ -1,0 +1,41 @@
+name: Portfolio Project Validation
+on:
+  push:
+    paths:
+      - 'projects/**'
+      - '.github/workflows/portfolio-projects-ci.yml'
+  pull_request:
+    paths:
+      - 'projects/**'
+      - '.github/workflows/portfolio-projects-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  local-unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test all implemented project packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=0
+          for project in projects/*; do
+            if [ -d "$project/tests" ]; then
+              echo "::group::$project"
+              (cd "$project" && python -m unittest discover -s tests -p 'test_*.py' -v)
+              echo "::endgroup::"
+              count=$((count + 1))
+            else
+              echo "NOT TESTED: $project has no tests directory"
+            fi
+          done
+          echo "Executed unit suites in $count project directories."
+          if [ "$count" -lt 26 ]; then
+            echo "WARNING: Not every project contains a unittest suite."
+          fi
