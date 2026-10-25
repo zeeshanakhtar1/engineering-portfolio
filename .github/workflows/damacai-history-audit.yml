@@ -1,0 +1,36 @@
+name: Da Ma Cai Historical Results Audit
+on:
+  push:
+    branches:
+      - data-export/damacai-2005-2026
+    paths:
+      - 'validation/damacai_audit.py'
+      - '.github/workflows/damacai-history-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - name: Checkout audit script
+        uses: actions/checkout@v4
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install packages
+        run: python -m pip install --disable-pip-version-check openpyxl requests
+      - name: Audit archived results and build workbook
+        run: python validation/damacai_audit.py
+      - name: Save reviewed workbook and audit summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: damacai-historical-audit
+          path: |
+            Da_Ma_Cai_2005-2026_Audited_Results.xlsx
+            damacai_audit_summary.json
+          if-no-files-found: warn
+          retention-days: 7
