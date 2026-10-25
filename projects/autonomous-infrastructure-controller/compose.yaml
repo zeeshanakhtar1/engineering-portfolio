@@ -1,9 +1,0 @@
-services:
-  controller:
-    build: .
-    read_only: true
-    tmpfs:
-      - /tmp
-    security_opt:
-      - no-new-privileges:true
-    command: ["--replicas","3","--utilization","0.92","--audit-file","/tmp/audit.jsonl"]
