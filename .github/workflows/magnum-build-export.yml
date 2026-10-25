@@ -1,0 +1,33 @@
+name: Magnum historical data workbook
+on:
+  push:
+    branches: [data-export/magnum-1985-2026]
+    paths:
+      - 'magnum/build_magnum.py'
+      - '.github/workflows/magnum-build-export.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install tooling
+        run: python -m pip install openpyxl requests
+      - name: Download and validate historical draw data
+        run: python magnum/build_magnum.py
+      - name: Upload historical workbook
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: magnum-1985-2026-five-games
+          path: |
+            Magnum_4D_All_Games_1985-2026_Verified.xlsx
+            Magnum_Validation_Summary.json
+          if-no-files-found: warn
+          retention-days: 7
