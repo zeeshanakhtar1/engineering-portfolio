@@ -88,6 +88,8 @@ def expected_id(j):
     return str(j.get("drawNo","")).split("/")[0]
 
 def valid_json(j,d):
+    if not isinstance(j,dict):
+        return False
     try:
         return (datetime.strptime(j.get("drawDate",""),"%d/%m/%Y").date().isoformat()==d
                 and re.fullmatch(r"\d{3,5}/\d{2}",str(j.get("drawNo",""))) is not None
@@ -230,7 +232,7 @@ def main():
     additional=[]
     for d in special_dates:
         if d not in ALL_DATES:
-            found=official_json(d,session)
+            found=official_json(d,session) if (live_dates_set is None or d in live_dates_set) else None
             if valid_json(found,d):
                 vals=json_numbers(found)
                 archive_url="https://www.damacai.com.my/past-draw-result/"
