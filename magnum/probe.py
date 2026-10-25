@@ -1,6 +1,6 @@
 import requests,json,time
 s=requests.Session();s.headers.update({"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/121.0.0.0 Safari/537.36","Accept":"application/json","Referer":"https://www.magnum4d.my/results/draw-results"})
-URLs=[
+URLs=["https://www.magnum4d.my/results/past/between-dates/null/2026-10-25/1000",
 "https://www.magnum4d.my/results/past/between-dates/null/2026-10-25/2",
 "https://www.magnum4d.my/results/past/between-dates/null/2018-04-25/2",
 "https://www.magnum4d.my/results/past/between-dates/null/2017-05-17/2",
@@ -16,7 +16,7 @@ for u in URLs:
    j=r.json()
    print("TYPE",type(j).__name__,"LEN",len(j))
    if isinstance(j,list):
-    for x in j[:2]:
+    for x in j[:1]:
      print("KEYS",list(x.keys()),flush=True)
      print("SAMPLE",json.dumps(x,ensure_ascii=False)[:18000],flush=True)
    else:print("DATA",json.dumps(j,ensure_ascii=False)[:18000],flush=True)
