@@ -1,5 +1,9 @@
+import math
 """Cloud Cost Optimization and Kubernetes FinOps: local-first domain-specific engine."""
 def evaluate(data):
+    values = [float(data[k]) for k in ('hourly_rate', 'hours')] + [float(data.get('budget', 0)), float(data.get('idle_fraction', 0))]
+    if not all(math.isfinite(x) for x in values):
+        raise ValueError('cost inputs must be finite')
     hourly=float(data['hourly_rate']); hours=float(data['hours']); budget=float(data.get('budget',0)); idle=float(data.get('idle_fraction',0))
     if min(hourly,hours,budget)<0 or not 0<=idle<=1: raise ValueError('invalid cost inputs')
     baseline=round(hourly*hours,2)
