@@ -1,6 +1,9 @@
 """Full-Stack Observability, Monitoring and Distributed Tracing: local domain logic."""
 import math
 def evaluate(data):
+    max_error = float(data.get('max_error_rate', .01))
+    if not math.isfinite(max_error) or not 0 <= max_error <= 1:
+        raise ValueError('max_error_rate must be between 0 and 1')
     items=data['requests']
     if not items:raise ValueError('requests required')
     ms=sorted(float(r['latency_ms']) for r in items)

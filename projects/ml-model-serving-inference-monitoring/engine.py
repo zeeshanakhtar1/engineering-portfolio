@@ -1,5 +1,11 @@
+import math
 """Production Machine Learning Model Serving and Inference Monitoring local evaluation engine."""
 def evaluate(data):
+    values = [*data['weights'], *data['features'], data['latency_ms'], data.get('latency_slo_ms', 100), data.get('bias', 0)]
+    if not all(math.isfinite(float(x)) for x in values):
+        raise ValueError('model inputs must be finite')
+    if float(data['latency_ms']) < 0 or float(data.get('latency_slo_ms',100)) < 0:
+        raise ValueError('latency and latency SLO must be nonnegative')
     weights=[float(x) for x in data['weights']]
     inputs=[float(x) for x in data['features']]
     if len(weights)!=len(inputs) or not weights:raise ValueError('feature count mismatch')
