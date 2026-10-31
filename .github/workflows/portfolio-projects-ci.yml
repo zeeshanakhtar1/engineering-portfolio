@@ -35,7 +35,9 @@ jobs:
               echo "NOT TESTED: $project has no tests directory"
             fi
           done
-          echo "Executed unit suites in $count project directories."
-          if [ "$count" -lt 26 ]; then
-            echo "WARNING: Not every project contains a unittest suite."
+          expected=$(find projects -mindepth 1 -maxdepth 1 -type d | wc -l)
+          echo "Executed unit suites in $count / $expected project directories."
+          if [ "$count" -ne "$expected" ] || [ "$count" -ne 26 ]; then
+            echo "::error::Test coverage gate failed: every current project requires a passing test suite."
+            exit 1
           fi
